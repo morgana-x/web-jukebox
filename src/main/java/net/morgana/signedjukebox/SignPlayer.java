@@ -1,10 +1,8 @@
 package net.morgana.signedjukebox;
 
 import net.minecraft.block.entity.JukeboxBlockEntity;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.modificationstation.stationapi.api.util.math.Vec3i;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +29,7 @@ public class SignPlayer {
 
         String totalSignText = SignUtil.getMultiSignText(world, signPos.x, signPos.y, signPos.z, false);
 
-        URL url = null;
+        URL url;
 
         System.out.println("Trying to apply " + totalSignText);
         try
@@ -42,7 +40,7 @@ public class SignPlayer {
         }
         catch (MalformedURLException e)
         {
-            System.out.println(e.toString());
+            System.out.println(e);
             return false;
         }
 
@@ -95,7 +93,7 @@ public class SignPlayer {
             }
             catch (IOException e)
             {
-                System.out.println(e.toString());
+                System.out.println(e);
                 return;
             }
         }
@@ -103,15 +101,14 @@ public class SignPlayer {
 
         var path = new File(TempFolder.toString() + "/song."+ext);
 
-        Thread thread = new Thread() {
-            public void run() {
+        Thread thread = new Thread( () ->{
                 // https://stackoverflow.com/questions/69861993/java-asynchronously-wait-x-seconds
                 try {
                     SongDownloader.Download(url, path);
 
                     Thread.sleep(1000);
 
-                    world.playStreaming("music://" + path.toString(), x, y, z);
+                    world.playStreaming("music://" + path, x, y, z);
                 }
                 catch (InterruptedException e) {
                     // See https://www.javaspecialists.eu/archive/Issue056-Shutting-down-Threads-Cleanly.html
@@ -121,9 +118,8 @@ public class SignPlayer {
                 {
                     System.out.println(e);
                 }
+        });
 
-            }
-        };
         thread.start();
 
     }

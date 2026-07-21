@@ -8,10 +8,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SongDownloader {
+
     public static void Download(URL url, File path) throws IOException {
         URL foundUrl = url;
 
-        HttpURLConnection connection = null;
+        HttpURLConnection connection;
         for (; ; ) {
             connection = (HttpURLConnection) foundUrl.openConnection();
             connection.setInstanceFollowRedirects(false);
