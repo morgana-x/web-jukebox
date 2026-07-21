@@ -9,6 +9,12 @@
     "morgana"
   ],
 
+  "contact": {
+    "homepage": "https://modrinth.com/mod/signed-jukeboxs",
+    "sources": "https://github.com/morgana-x/signed-jukeboxes",
+    "issues": "https://github.com/morgana-x/signed-jukeboxes/issues"
+  },
+
   "license": "MIT",
   "icon": "assets/signedjukebox/icon.png",
 
