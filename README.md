@@ -18,6 +18,11 @@ if your link is > 60 characters, it supports using multiple signs to make up the
 Then insert and eject any disc as usual
 
 ![Example of mod](screenshots/example.png)
+![Example of mod 2](screenshots/example2.png)
+
+
+The "Paste Audio Link" button will paste any audio link onto the sign in your clipboard, 
+it will also detect if part of it is contained in signs to the left, and paste the next remaing 60 or less characters.
 
 # Link notes
 You can omit `https://` / `http://` which can be automatically prefixed onto the link to save characters.

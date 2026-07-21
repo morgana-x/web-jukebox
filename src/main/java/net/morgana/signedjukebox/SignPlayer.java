@@ -17,48 +17,7 @@ public class SignPlayer {
 
     static Path TempFolder;
 
-    static BlockPos getAttachedSign(World world, int x, int y, int z) {
-        for (int bx = -1; bx < 2; bx++)
-                for (int bz = -1; bz < 2; bz++) {
-                    int t = Math.abs(bx) + Math.abs(bz);
-                    if (t == 0)
-                        continue;
-                    if (t == 2)
-                        continue;
 
-                    int px = x + bx;
-                    int pz = z + bz;
-
-                    if (world.getBlockEntity(px, y, pz) instanceof SignBlockEntity sign)
-                        return new BlockPos(px, y, pz);
-
-                }
-        return null;
-    }
-
-
-    static String getTotalText(SignBlockEntity sign) {
-        String result = "";
-
-        for (var t: sign.texts)
-            result += t;
-        return result;
-    }
-
-    static Vec3i getDir(SignBlockEntity sign)
-    {
-        switch(sign.getPushedBlockData())
-        {
-            case 2:
-                return new Vec3i(0, 0, 1);
-            case 4:
-                return new Vec3i(1, 0, 0);
-            case 5:
-                return new Vec3i(-1,0,0);
-            default:
-                return new Vec3i(0, 0, -1);
-        }
-    }
 
     public static boolean DoCustomJukebox(World world, int x, int y, int z)
     {
@@ -66,43 +25,11 @@ public class SignPlayer {
             return false;
 
 
-        BlockPos signPos = getAttachedSign(world, x, y, z);
+        BlockPos signPos = SignUtil.getAttachedSign(world, x, y, z);
         if (signPos == null)
             return false;
 
-        SignBlockEntity signEntity = (SignBlockEntity)world.getBlockEntity(signPos.x, signPos.y, signPos.z);
-
-        Vec3i dir = getDir(signEntity);
-        Vec3i right = new Vec3i(dir.getZ(), 0, -dir.getX());
-
-        System.out.println(dir);
-
-        Vec3i leftMost = new Vec3i(signPos.x, signPos.y, signPos.z);
-        for (int i = 0; i < 3; i++)
-        {
-            System.out.println("Left " + i);
-
-            Vec3i next = leftMost.add(right);
-            if (!(world.getBlockEntity(next.getX(), next.getY(), next.getZ()) instanceof SignBlockEntity sign &&dir.equals(getDir(sign))))
-                break;
-            leftMost = next;
-        }
-
-        String totalSignText = "";
-
-        Vec3i nextSign = leftMost;
-        for (int i = 0; i < 7; i++)
-        {
-            if (!(world.getBlockEntity(nextSign.getX(), nextSign.getY(), nextSign.getZ()) instanceof SignBlockEntity sign && dir.equals(getDir(sign))))
-                break;
-
-            System.out.println("Right " + i);
-
-            totalSignText += getTotalText(sign);
-
-            nextSign = nextSign.add(right.multiply(-1));
-
-        }
+        String totalSignText = SignUtil.getMultiSignText(world, signPos.x, signPos.y, signPos.z, false);
 
         URL url = null;
 

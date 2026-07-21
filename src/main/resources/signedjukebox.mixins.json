@@ -9,7 +9,8 @@
   ],
   "client": [
     "SoundManagerMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "SignEditScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
