@@ -18,3 +18,6 @@ if your link is > 60 characters, it supports using multiple signs to make up the
 Then insert and eject any disc as usual
 
 ![Example of mod](screenshots/example.png)
+
+# Link notes
+You can omit `https://` / `http://` which can be automatically prefixed onto the link to save characters.
