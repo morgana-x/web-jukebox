@@ -1,9 +1,9 @@
 # Signed Music Jukebox (b1.7.3)
-Requires Babric and StationAPI
-
-Clientside only mod
+Clientside only babric mod that allows playing custom music on Jukeboxes
 
 Plays the URL written on a sign attached to the jukebox instead of the Disc!
+
+Other clients with the mod should also be able to hear the custom music!
 
 Supported formats: `wav, ogg, mid`
 
