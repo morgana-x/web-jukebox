@@ -4,8 +4,6 @@ import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.modificationstation.stationapi.api.state.property.Properties;
-import net.modificationstation.stationapi.api.util.math.Vec3f;
 import net.modificationstation.stationapi.api.util.math.Vec3i;
 
 import java.io.File;
@@ -128,7 +126,7 @@ public class SignPlayer {
         return true;
     }
 
-    static String[] ValidExt = new String[]{"mp3", "ogg", "mid", "mus"};
+    static String[] ValidExt = new String[]{"flac", "ogg", "mid", "mus"};
     private static String getValidFileExtension(URL url)
     {
         String file = url.getFile();
@@ -146,8 +144,6 @@ public class SignPlayer {
 
 
         ext = ext.replace("/", "").replace("\\", "").replace(".", "");
-
-        System.out.println(ext);
 
         for (var s:ValidExt) {
             if (s.equals(ext))
