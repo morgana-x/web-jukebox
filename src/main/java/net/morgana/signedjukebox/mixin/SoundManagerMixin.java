@@ -33,8 +33,9 @@ public class SoundManagerMixin {
 			return;
 		}
 
-		if (soundSystem.playing("streaming"))
+		if (soundSystem.playing("streaming")) {
 			soundSystem.stop("streaming");
+		}
 
 		if (id == null || !id.startsWith("music://"))
 			return;
