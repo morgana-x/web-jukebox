@@ -26,8 +26,6 @@ public class WorldRendererMixin {
 
     @Inject(at = @At("HEAD"), method = "playStreaming",  cancellable = true)
     private void playStreaming(String stream, int x, int y, int z, CallbackInfo ci) {
-        System.out.println("Custom music disc event!!! " + stream);
-
         if (stream == null)
         {
             this.client.soundManager.playStreaming(null, x, y, z, 1.0f, 1.0f);
@@ -37,8 +35,15 @@ public class WorldRendererMixin {
 
         if (stream.startsWith("music://"))
         {
-            System.out.println("Custom record overlay");
-            this.client.inGameHud.setRecordPlayingOverlay( new File(stream.replace("music://","")).getName());
+            String title = new File(stream.replace("music://","")).getName();
+            if (stream.contains("title://"))
+            {
+                int titleI = stream.indexOf("title://");
+                title = stream.substring(titleI + 8);
+                stream = stream.substring(0, titleI);
+            }
+
+            this.client.inGameHud.setRecordPlayingOverlay(title);
             this.client.soundManager.playStreaming(stream, x, y, z, 1.0f, 1.0f);
             ci.cancel();
             return;

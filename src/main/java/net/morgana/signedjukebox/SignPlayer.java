@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -108,7 +110,12 @@ public class SignPlayer {
 
                     Thread.sleep(1000);
 
-                    world.playStreaming("music://" + path, x, y, z);
+                    String title = URLDecoder.decode(new File(url.toString()).getName(), Charset.defaultCharset())
+                            .replace("/", "").
+                            replace("\\", "")
+                                    .replace("." + ext, "");
+
+                    world.playStreaming("music://" + path + "title://" + title, x, y, z);
                 }
                 catch (InterruptedException e) {
                     // See https://www.javaspecialists.eu/archive/Issue056-Shutting-down-Threads-Cleanly.html
