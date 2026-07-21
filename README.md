@@ -16,3 +16,5 @@ Have a sign that contains the link to the music file attached to the jukebox,
 if your link is > 60 characters, it supports using multiple signs to make up the link
 
 Then insert and eject any disc as usual
+
+![Example of mod](screenshots/example.png)
