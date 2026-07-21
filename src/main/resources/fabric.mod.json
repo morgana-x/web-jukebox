@@ -3,7 +3,7 @@
   "id": "signedjukebox",
   "version": "${version}",
 
-  "name": "Signed Jukebox",
+  "name": "Signed Jukeboxes",
   "description": "Plays custom music",
   "authors": [
     "morgana"
