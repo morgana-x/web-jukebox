@@ -126,7 +126,7 @@ public class SignPlayer {
         return true;
     }
 
-    static String[] ValidExt = new String[]{"ogg", "mid", "mus"};
+    static String[] ValidExt = new String[]{"ogg", "mid", "mus", "wav"};
     private static String getValidFileExtension(URL url)
     {
         String file = url.getFile();

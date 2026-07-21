@@ -1,3 +1,18 @@
 # Signed Music Jukebox (b1.7.3)
+Requires Babric and StationAPI
+
+Clientside only mod
 
 Plays the URL written on a sign attached to the jukebox instead of the Disc!
+
+Supported formats: `wav, ogg, mid`
+
+`.mid` midi files are technically supported but not reccomended (playback cannot be cancelled until it finishes the song)
+
+
+# How to use
+Have a sign that contains the link to the music file attached to the jukebox,
+
+if your link is > 60 characters, it supports using multiple signs to make up the link
+
+Then insert and eject any disc as usual
