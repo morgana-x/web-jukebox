@@ -1,13 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.danygames2014.template.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "package": "net.morgana.signedjukebox.mixin",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],
   "server": [
   ],
   "client": [
+    "SoundManagerMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

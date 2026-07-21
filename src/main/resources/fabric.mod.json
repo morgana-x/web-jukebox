@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "template",
+  "id": "signedjukebox",
   "version": "${version}",
 
-  "name": "Template",
-  "description": "",
+  "name": "Signed Jukebox",
+  "description": "Plays custom music",
   "authors": [
-    "DanyGames2014"
+    "morgana"
   ],
 
   "license": "MIT",
-  "icon": "assets/template/icon.png",
+  "icon": "assets/signedjukebox/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -22,7 +22,7 @@
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "signedjukebox.mixins.json"
   ],
 
   "depends": {
