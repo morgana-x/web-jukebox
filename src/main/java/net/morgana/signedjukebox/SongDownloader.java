@@ -15,7 +15,7 @@ public class SongDownloader {
     static Path TempFolder;
 
     // Valid but needs to be converted
-    static String[] ConvertToOgg = {"mp3", "flac"};
+    static String[] ConvertToOgg = {"mp3", "flac", "m4a", "webm", "mkv", "opus"};
 
     // Valid extensions supported by pauls code  sound lib
     static String[] ValidExt = new String[]{"ogg", "mid", "mus", "wav"};

@@ -46,6 +46,9 @@ public class SignUtil {
         };
     }
 
+
+    static final int MaxCombinedSigns = 8;
+
     public static String getMultiSignText(World world, int x, int y, int z, boolean leftOnly)
     {
         SignBlockEntity signEntity = (SignBlockEntity)world.getBlockEntity(x, y, z);
@@ -54,12 +57,13 @@ public class SignUtil {
 
         Vec3i right = new Vec3i(dir.z, 0, -dir.x);
 
-
-
         Vec3i leftMost = new Vec3i(x, y, z);
-        for (int i = 0; i < 3; i++)
+
+        int numSignsLeft;
+
+        for (numSignsLeft = 0; numSignsLeft < MaxCombinedSigns; numSignsLeft++)
         {
-            System.out.println("Left " + i);
+            System.out.println("Left " + numSignsLeft);
 
             Vec3i next = new Vec3i(leftMost.x + right.x, leftMost.y + right.y, leftMost.z + right.z);
 
@@ -71,7 +75,7 @@ public class SignUtil {
         StringBuilder totalSignText = new StringBuilder();
 
         Vec3i nextSign = leftMost;
-        for (int i = 0; i < (leftOnly ? 3 : 7); i++)
+        for (int i = 0; i < (leftOnly ? numSignsLeft : (numSignsLeft) + MaxCombinedSigns + 1); i++)
         {
             if (!(world.getBlockEntity(nextSign.x, nextSign.y, nextSign.z) instanceof SignBlockEntity sign && dir.equals(getDir(sign))))
                 break;
