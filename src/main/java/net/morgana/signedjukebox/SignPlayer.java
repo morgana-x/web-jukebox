@@ -15,10 +15,6 @@ import java.nio.file.Path;
 
 public class SignPlayer {
 
-    static Path TempFolder;
-
-
-
     public static boolean DoCustomJukebox(World world, int x, int y, int z)
     {
         if (!(world.getBlockEntity(x, y, z) instanceof JukeboxBlockEntity))
@@ -53,69 +49,32 @@ public class SignPlayer {
         return true;
     }
 
-    static String[] ValidExt = new String[]{"ogg", "mid", "mus", "wav"};
-    private static String getValidFileExtension(URL url)
+
+    private static String stripExtension(String name)
     {
-        String file = url.getFile();
+        if (!name.contains("."))
+            return name;
 
-        System.out.println(file);
-
-        if (!file.contains("."))
-            return null;
-
-        var i = file.lastIndexOf(".");
-        if (i == -1)
-            return null;
-
-        var ext = file.substring(i).toLowerCase();
-
-
-        ext = ext.replace("/", "").replace("\\", "").replace(".", "");
-
-        for (var s:ValidExt) {
-            if (s.equals(ext))
-                return ext;
-        }
-
-        return null;
+        return name.substring(0, name.lastIndexOf("."));
     }
 
-
     private static void downloadAndPlaySong(World world, int x, int y, int z, URL url) {
-
-        var ext = getValidFileExtension(url);
-        if (ext == null)
-            return;
-
-        System.out.println("Ext: " + ext);
-
-        if (TempFolder == null) {
-            try {
-                TempFolder = Files.createTempDirectory("b1.7.3.music");
-            }
-            catch (IOException e)
-            {
-                System.out.println(e);
-                return;
-            }
-        }
-
-
-        var path = new File(TempFolder.toString() + "/song."+ext);
 
         Thread thread = new Thread( () ->{
                 // https://stackoverflow.com/questions/69861993/java-asynchronously-wait-x-seconds
                 try {
-                    SongDownloader.Download(url, path);
+                    File newPath = SongDownloader.Download(url);
+
+                    if (newPath == null)
+                        return;
 
                     Thread.sleep(1000);
 
-                    String title = URLDecoder.decode(new File(url.toString()).getName(), Charset.defaultCharset())
+                    String title = stripExtension(URLDecoder.decode(new File(url.toString()).getName(), Charset.defaultCharset())
                             .replace("/", "").
-                            replace("\\", "")
-                                    .replace("." + ext, "");
+                            replace("\\", ""));
 
-                    world.playStreaming("music://" + path + "title://" + title, x, y, z);
+                    world.playStreaming("music://" + newPath + "title://" + title, x, y, z);
                 }
                 catch (InterruptedException e) {
                     // See https://www.javaspecialists.eu/archive/Issue056-Shutting-down-Threads-Cleanly.html
