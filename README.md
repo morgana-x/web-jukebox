@@ -7,6 +7,8 @@ Other clients with the mod should also be able to hear the custom music!
 
 Supported formats: `wav, ogg, mid`
 
+If FFMPEG is installed on your system, you can also use `mp3, flag` which will be converted to ogg
+
 `.mid` midi files are technically supported but not reccomended (playback cannot be cancelled until it finishes the song)
 
 
