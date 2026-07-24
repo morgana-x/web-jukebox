@@ -15,6 +15,7 @@ import java.nio.file.Path;
 
 public class SignPlayer {
 
+    static Thread currentDownload;
     public static boolean DoCustomJukebox(World world, int x, int y, int z)
     {
         if (!(world.getBlockEntity(x, y, z) instanceof JukeboxBlockEntity))
@@ -59,8 +60,10 @@ public class SignPlayer {
     }
 
     private static void downloadAndPlaySong(World world, int x, int y, int z, URL url) {
+        if (currentDownload != null && currentDownload.isAlive())
+            currentDownload.interrupt();
 
-        Thread thread = new Thread( () ->{
+        currentDownload = new Thread( () ->{
                 // https://stackoverflow.com/questions/69861993/java-asynchronously-wait-x-seconds
                 try {
                     File newPath = SongDownloader.Download(url);
@@ -70,11 +73,13 @@ public class SignPlayer {
 
                     Thread.sleep(1000);
 
+
                     String title = stripExtension(URLDecoder.decode(new File(url.toString()).getName(), Charset.defaultCharset())
                             .replace("/", "").
                             replace("\\", ""));
 
-                    world.playStreaming("music://" + newPath + "title://" + title, x, y, z);
+                    if (!Thread.currentThread().isInterrupted())
+                        world.playStreaming("music://" + newPath + "title://" + title, x, y, z);
                 }
                 catch (InterruptedException e) {
                     // See https://www.javaspecialists.eu/archive/Issue056-Shutting-down-Threads-Cleanly.html
@@ -86,7 +91,6 @@ public class SignPlayer {
                 }
         });
 
-        thread.start();
-
+        currentDownload.start();
     }
 }
